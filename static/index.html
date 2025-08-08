@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Smart RAG QA</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        label { font-weight: bold; display: block; margin-top: 20px; }
+        input[type="file"], input[type="text"], button { margin-top: 8px; }
+        #answer { margin-top: 20px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Smart RAG QA</h1>
+    
+    <label>Upload Document:</label>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload</button>
+    <p id="uploadStatus"></p>
+
+    <label>Ask a Question:</label>
+    <input type="text" id="question" placeholder="Enter your question here" size="50" />
+    <button onclick="getAnswer()">Get Answer</button>
+
+    <h3>Answer:</h3>
+    <div id="answer"></div>
+
+<script>
+async function uploadFile() {
+    const fileInput = document.getElementById("fileInput");
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Please choose a file first.");
+        return;
+    }
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const resp = await fetch("/upload", {
+        method: "POST",
+        body: formData,
+    });
+    const data = await resp.json();
+    document.getElementById("uploadStatus").innerText = data.message || "Upload done";
+}
+
+async function getAnswer() {
+    const question = document.getElementById("question").value;
+    if (!question) {
+        alert("Please enter a question.");
+        return;
+    }
+    const resp = await fetch("/query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: question }),
+    });
+    const data = await resp.json();
+    document.getElementById("answer").innerText = data.answer || "No answer";
+}
+</script>
+</body>
+</html>

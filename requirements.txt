@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-docx
+pytesseract
+faiss-cpu
+Pillow
+pandas
+python-multipart
+python-dotenv
+uvicorn[standard]
+jinja2
+pydantic
+PyPDF2
+sentence-transformers
+faiss-cpu
+transformers
+torch
