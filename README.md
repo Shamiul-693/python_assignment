@@ -106,6 +106,8 @@ Answer:
 - **LLM**: OpenAI API or local model
 
 ---
+<img width="713" height="430" alt="image" src="https://github.com/user-attachments/assets/bba3168e-6a82-4133-9c20-b3f4a4580c3a" />
+
 
 ## 📜 License
 This project is licensed under the MIT License.
